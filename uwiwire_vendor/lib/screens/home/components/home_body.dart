@@ -21,6 +21,7 @@ class HomeBody extends StatelessWidget {
           children: [
             // Balance
             Container(
+              margin: const EdgeInsets.only(top: kToolbarHeight),
               width: size.width,
               decoration: const BoxDecoration(color: kBackgroundColor),
               child: Column(
@@ -39,7 +40,7 @@ class HomeBody extends StatelessWidget {
 
             // Transactions
             Container(
-              height: size.height,
+              height: size.height - (kToolbarHeight * 2),
               decoration: const BoxDecoration(
                 color: kPrimaryColor,
                 borderRadius: BorderRadius.only(

@@ -5,7 +5,6 @@ import 'package:uwiwire_vendor/constants.dart';
 import 'components/login_button.dart';
 import 'components/login_form.dart';
 
-// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   static final TextEditingController _usernameController =
       TextEditingController();

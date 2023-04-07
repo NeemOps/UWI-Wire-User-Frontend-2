@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uwiwire_vendor/screens/home/nav_screen.dart';
+import 'package:uwiwire_vendor/screens/metamask_screen.dart';
 
 import 'constants.dart';
 import 'screens/login/login_screen.dart';
@@ -20,9 +21,9 @@ class MyApp extends StatelessWidget {
         primaryColor: kPrimaryColor,
       ),
       home: const LoginScreen(),
-      // home: const NavScreen(),
       routes: {
         '/home': (context) => const NavScreen(),
+        '/metamask': (context) => const MetamaskScreen(),
       },
     );
   }
