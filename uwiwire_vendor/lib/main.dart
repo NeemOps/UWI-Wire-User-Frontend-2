@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:uwiwire_vendor/screens/home/nav_screen.dart';
 import 'package:uwiwire_vendor/screens/metamask_screen.dart';
+import 'package:uwiwire_vendor/screens/payment/qr_scanner/peer_scanner.dart';
+import 'package:uwiwire_vendor/screens/payment/qr_screen.dart';
 
 import 'constants.dart';
 import 'screens/login/login_screen.dart';
@@ -23,7 +25,8 @@ class MyApp extends StatelessWidget {
       home: const LoginScreen(),
       routes: {
         '/home': (context) => const NavScreen(),
-        '/metamask': (context) => const MetamaskScreen(),
+        'sendPeli': (context) => const GenerateQRPage(),
+        '/scanner': (context) => const QrScanner(),
       },
     );
   }

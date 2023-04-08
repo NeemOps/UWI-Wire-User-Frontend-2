@@ -3,7 +3,7 @@ import 'package:uwiwire_vendor/constants.dart';
 import 'package:uwiwire_vendor/screens/home/components/home_body.dart';
 
 import '../account_screen.dart';
-import '../qr_screen.dart';
+import '../payment/payment_screen.dart';
 import 'menu.dart';
 
 class NavScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _NavScreenState extends State<NavScreen> {
 
   final List<Widget> _bodyOptions = <Widget>[
     HomeBody(),
-    const GenerateQRPage(),
+    const PaymentScreen(),
     AccountScreen(),
   ];
 
@@ -75,7 +75,7 @@ class _NavScreenState extends State<NavScreen> {
         // Bill Icon
         BottomNavigationBarItem(
           icon: Icon(Icons.qr_code_scanner_outlined),
-          label: 'Bill',
+          label: 'Payment',
         ),
 
         // Account Icon

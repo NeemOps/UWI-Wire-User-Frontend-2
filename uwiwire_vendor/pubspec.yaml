@@ -42,6 +42,8 @@ dependencies:
   url_launcher: ^6.1.10
   walletconnect_dart: ^0.0.11
   google_fonts: ^4.0.3
+  qr_code_scanner: ^1.0.1
+  flutter_bloc: ^8.1.2
   # qr_code_scanner: ^1.0.1
 
 dev_dependencies:
