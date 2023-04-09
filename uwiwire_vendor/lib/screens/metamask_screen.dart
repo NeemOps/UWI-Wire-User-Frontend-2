@@ -10,31 +10,73 @@ class MetamaskScreen extends StatefulWidget {
 }
 
 class _MetamaskScreenState extends State<MetamaskScreen> {
+  var _session, _uri;
+
+  var connector = WalletConnect(
+    bridge: 'https://bridge.walletconnect.org',
+    clientMeta: const PeerMeta(
+      name: 'UWIwire',
+      description: 'An app for converting pictures to NFT',
+      url: 'https://uwi-wire.herokuapp.com/',
+      icons: [],
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
-    var connector = WalletConnect(
-      bridge: 'https://bridge.walletconnect.org',
-      clientMeta: const PeerMeta(
-          name: 'My App',
-          description: 'An app for converting pictures to NFT',
-          url: 'https://walletconnect.org',
-          icons: [
-            'https://files.gitbook.com/v0/b/gitbook-legacy-files/o/spaces%2F-LJJeCjcLrr53DcT1Ml7%2Favatar.png?alt=media'
-          ]),
+    connector.on(
+      'connect',
+      (session) => setState(() {
+        _session = _session;
+      }),
     );
-    return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Login Page'),
-      // ),
-      body: SingleChildScrollView(
+
+    connector.on(
+      'session_update',
+      (payload) => setState(() {
+        _session = payload;
+        print(payload.toString());
+        print(payload.toString());
+      }),
+    );
+
+    connector.on(
+      'disconnect',
+      (payload) => setState(() {
+        _session = null;
+      }),
+    );
+
+    return Center(
+      child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-                onPressed: () => {}, child: const Text("Connect Metamask"))
+              onPressed: () => connectMetamask(context),
+              child: const Text("Connect Metamask"),
+            )
           ],
         ),
       ),
     );
+  }
+
+  connectMetamask(BuildContext context) async {
+    if (!connector.connected) {
+      try {
+        var session = await connector.createSession(onDisplayUri: (uri) async {
+          _uri = uri;
+          await launchUrlString(uri, mode: LaunchMode.externalApplication);
+        });
+        print(session.accounts[0]);
+        print(session.chainId);
+        setState(() {
+          _session = session;
+        });
+      } catch (exp) {
+        print(exp);
+      }
+    }
   }
 }

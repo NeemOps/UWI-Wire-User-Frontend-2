@@ -7,12 +7,12 @@ import 'package:uwiwire_vendor/screens/payment/qr_screen.dart';
 import 'constants.dart';
 import 'screens/login/login_screen.dart';
 
-void main() {
+void main(List<String> args) {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
