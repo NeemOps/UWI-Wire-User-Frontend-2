@@ -106,7 +106,7 @@ class WalletInfo extends StatelessWidget {
                   GoogleFonts.ubuntu(fontWeight: FontWeight.bold, fontSize: 16),
             ),
 
-            // Display Account Address
+            // Displays Account Address
             Text(
               '${_session.accounts[0]}',
               style: GoogleFonts.inconsolata(fontSize: 16),
