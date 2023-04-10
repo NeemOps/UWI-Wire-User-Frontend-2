@@ -15,24 +15,25 @@ class HomeBody extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Container(
-      color: kBackgroundColor,
+      color: kPrimaryColor,
       child: SingleChildScrollView(
         child: Column(
           children: [
             // Balance
             Container(
-              margin: const EdgeInsets.only(top: kToolbarHeight),
+              margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
               width: size.width,
-              decoration: const BoxDecoration(color: kBackgroundColor),
+              decoration: const BoxDecoration(color: kPrimaryColor),
               child: Column(
                 children: [
                   const Text(
                     'Balance',
-                    style: TextStyle(color: kPrimaryColor, fontSize: 30),
+                    style: TextStyle(color: kBackgroundColor, fontSize: 30),
                   ),
                   Text(
                     '\$${_accountInfo.getBalance()}',
-                    style: const TextStyle(color: kPrimaryColor, fontSize: 50),
+                    style:
+                        const TextStyle(color: kBackgroundColor, fontSize: 50),
                   ),
                 ],
               ),
@@ -42,7 +43,7 @@ class HomeBody extends StatelessWidget {
             Container(
               height: size.height - (kToolbarHeight * 2),
               decoration: const BoxDecoration(
-                color: kPrimaryColor,
+                color: kBackgroundColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30),
                   topRight: Radius.circular(30),

@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:uwiwire_vendor/backend/transactions/_transactions.dart';
 import 'package:uwiwire_vendor/constants.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-class GenerateQRPage extends StatefulWidget {
-  const GenerateQRPage({super.key});
+class SendPeliScreen extends StatefulWidget {
+  final dynamic walletAddr;
+
+  const SendPeliScreen({super.key, required this.walletAddr});
 
   @override
-  State<GenerateQRPage> createState() => _GenerateQRPageState();
+  State<SendPeliScreen> createState() =>
+      // ignore: no_logic_in_create_state
+      _SendPeliScreenState(recipient: walletAddr);
 }
 
-class _GenerateQRPageState extends State<GenerateQRPage> {
+class _SendPeliScreenState extends State<SendPeliScreen> {
+  dynamic recipient;
+
+  _SendPeliScreenState({required this.recipient});
+
   final TextEditingController _subtotalController = TextEditingController();
   double _total = 0.0;
 
@@ -31,8 +40,6 @@ class _GenerateQRPageState extends State<GenerateQRPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: SafeArea(
@@ -42,18 +49,19 @@ class _GenerateQRPageState extends State<GenerateQRPage> {
               // Whitespace
               const SizedBox(height: 32.0),
 
+              // Recipient name and address
               Container(
                 padding: const EdgeInsets.all(16.0),
                 alignment: Alignment.centerLeft,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
+                  children: [
+                    const Text(
                       'Recipient',
                       style: TextStyle(color: kPrimaryColor, fontSize: 30),
                     ),
                     Text('Name: '),
-                    Text('Wallet Address: '),
+                    Text('Wallet Address: $recipient'),
                   ],
                 ),
               ),
@@ -107,6 +115,8 @@ class _GenerateQRPageState extends State<GenerateQRPage> {
                         _buildCalcButton('3'),
                       ],
                     ),
+
+                    // Whitespace
                     const SizedBox(height: 16.0),
 
                     // 4, 5, 6
@@ -118,6 +128,8 @@ class _GenerateQRPageState extends State<GenerateQRPage> {
                         _buildCalcButton('6'),
                       ],
                     ),
+
+                    // Whitespace
                     const SizedBox(height: 16.0),
 
                     // 7, 8, 9
@@ -154,12 +166,13 @@ class _GenerateQRPageState extends State<GenerateQRPage> {
                     // Whitespace
                     const SizedBox(height: 16.0),
 
-                    // Generate QR Code
+                    // Send
                     ElevatedButton(
                       onPressed: () {
-                        generateQR(context);
+                        // Transactions transactions = Transactions();
+                        // transactions.transfer(recipient, _total);
                       },
-                      child: const Text('Generate QR'),
+                      child: const Text('Send'),
                     ),
                   ],
                 ),
@@ -168,43 +181,6 @@ class _GenerateQRPageState extends State<GenerateQRPage> {
           ),
         ),
       ),
-    );
-  }
-
-  Future<dynamic> generateQR(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              QrImage(
-                data: _total.toStringAsFixed(2),
-                version: QrVersions.auto,
-                size: 300.0,
-              ),
-
-              // Total
-              Text(
-                'Total: \$${_total.toStringAsFixed(2)}',
-                style: const TextStyle(fontSize: 20),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-
-                // Close Dialog
-                child: const Text(
-                  'close',
-                  style: TextStyle(fontSize: 20),
-                ),
-              )
-            ],
-          ),
-        );
-      },
     );
   }
 

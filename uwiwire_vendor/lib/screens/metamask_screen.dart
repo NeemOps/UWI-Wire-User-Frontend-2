@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:uwiwire_vendor/constants.dart';
+
 import 'package:walletconnect_dart/walletconnect_dart.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -100,17 +101,33 @@ class WalletInfo extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Account',
-              style:
-                  GoogleFonts.ubuntu(fontWeight: FontWeight.bold, fontSize: 16),
+            Container(
+              alignment: Alignment.center,
+              child: const Text(
+                'Metamask Connected!',
+                style: TextStyle(fontSize: 20, color: kPrimaryColor),
+              ),
             ),
 
+            // Whitespace
+            const SizedBox(height: 100),
+
             // Displays Account Address
-            Text(
-              '${_session.accounts[0]}',
-              style: GoogleFonts.inconsolata(fontSize: 16),
-            ),
+            const Text('Account'),
+            Text('${_session.accounts[0]}'),
+
+            // Whitespace
+            const SizedBox(height: 100),
+
+            Container(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/homeRoute');
+                },
+                child: const Text('Home'),
+              ),
+            )
           ],
         ));
   }

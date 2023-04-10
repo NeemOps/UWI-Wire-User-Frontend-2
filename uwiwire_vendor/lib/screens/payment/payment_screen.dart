@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+import '../../backend/_account_info.dart';
+
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
 
@@ -9,7 +11,7 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  var walletAddr = 0;
+  final AccountInfo _accountInfo = AccountInfo();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             // // Make Payment
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, 'sendPeli');
+                Navigator.pushNamed(context, '/sendPeli');
               },
               child: const Text('Make Payment'),
             ),
@@ -62,7 +64,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               QrImage(
-                data: '$walletAddr',
+                data: _accountInfo.getWalletAddress(),
                 version: QrVersions.auto,
                 size: 300.0,
               ),

@@ -25,7 +25,7 @@ class _NavScreenState extends State<NavScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kPrimaryColor,
+      backgroundColor: kBackgroundColor,
 
       // Sidebar
       drawer: const Menu(),
@@ -52,9 +52,9 @@ class _NavScreenState extends State<NavScreen> {
   AppBar buildAppBar() {
     return AppBar(
       elevation: 0,
-      backgroundColor: kBackgroundColor,
+      backgroundColor: kPrimaryColor,
       actions: const <Widget>[
-        Text('UWI WIRE'),
+        Center(child: Text('UWIwire')),
       ],
     );
   }
@@ -62,7 +62,7 @@ class _NavScreenState extends State<NavScreen> {
   // Bottom Navigation Bar
   BottomNavigationBar buildBottomNav() {
     return BottomNavigationBar(
-      fixedColor: kBackgroundColor,
+      fixedColor: kPrimaryColor,
       backgroundColor: kGrey,
       currentIndex: _currentIndex,
       items: const <BottomNavigationBarItem>[

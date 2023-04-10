@@ -45,7 +45,8 @@ dependencies:
   qr_code_scanner: ^1.0.1
   flutter_bloc: ^8.1.2
   loading_animation_widget: ^1.2.0+4
-  # qr_code_scanner: ^1.0.1
+  web3dart: ^2.6.1
+  flutter_web3: ^2.1.9
 
 dev_dependencies:
   flutter_test:

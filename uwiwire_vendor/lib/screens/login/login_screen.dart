@@ -5,6 +5,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:uwiwire_vendor/constants.dart';
 import '../../backend/authentication/_authentication_controller.dart';
 import '../../backend/authentication/_login_command.dart';
+
 import 'components/login_form.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -53,9 +54,10 @@ class _LoginScreenState extends State<LoginScreen> {
         accessToken = await _authController.authenticate();
 
         // ignore: use_build_context_synchronously
-        Navigator.pushNamed(context, '/home');
+        Navigator.pushNamed(context, '/metamaskRoute');
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: kPrimaryColor,
           content: Text('Incorrect Email or Password.'),
         ));
       }
@@ -65,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kPrimaryColor,
+      backgroundColor: kBackgroundColor,
       body: Stack(
         children: <Widget>[
           Center(
@@ -84,14 +86,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(
                             fontSize: 35,
                             fontWeight: FontWeight.bold,
-                            color: kBackgroundColor,
+                            color: kPrimaryColor,
                           ),
                           children: <TextSpan>[
                             TextSpan(
                               text: 'wire',
                               style: TextStyle(
-                                fontSize: 35,
-                                fontWeight: FontWeight.normal,
+                                fontSize: 32,
                               ),
                             ),
                           ],
@@ -148,13 +149,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.all(25),
                         margin: const EdgeInsets.symmetric(horizontal: 25),
                         decoration: BoxDecoration(
-                            color: kBackgroundColor,
+                            color: kPrimaryColor,
                             borderRadius: BorderRadius.circular(8)),
                         child: const Center(
                           child: Text(
                             'Sign In',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: kBackgroundColor,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -173,9 +174,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Container(
                         height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
-                        color: kPrimaryColor,
+                        color: kBackgroundColor,
                         child: LoadingAnimationWidget.dotsTriangle(
-                            color: kBackgroundColor, size: 100),
+                            color: kPrimaryColor, size: 100),
                       ),
                     ),
                   ),
