@@ -2,50 +2,72 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:uwiwire_vendor/constants.dart';
 
-class QrScanner extends StatefulWidget {
-  const QrScanner({super.key});
+import '../send_peli_screen.dart';
+
+class PeerScanner extends StatefulWidget {
+  const PeerScanner({super.key});
 
   @override
-  State<QrScanner> createState() => _QrScannerState();
+  State<PeerScanner> createState() => _PeerScannerState();
 }
 
-class _QrScannerState extends State<QrScanner> {
+class _PeerScannerState extends State<PeerScanner> {
   final GlobalKey _globalKey = GlobalKey();
   QRViewController? controller;
-  Barcode? result;
+  static Barcode? walletAddr;
 
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((event) {
       setState(() {
-        result = event;
+        walletAddr = event;
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        color: kPrimaryColor,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 400,
-              width: 400,
-              child: QRView(
-                key: _globalKey,
-                onQRViewCreated: _onQRViewCreated,
-              ),
+    return Scaffold(
+      body: Stack(children: <Widget>[
+        Center(
+          child: Container(
+            color: kPrimaryColor,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  width: 400,
+                  child: QRView(
+                    key: _globalKey,
+                    onQRViewCreated: _onQRViewCreated,
+                  ),
+                ),
+              ],
             ),
-            Center(
-                child: (result != null)
-                    ? Text('${result!.code}')
-                    : const Text('Scan QR', style: TextStyle(fontSize: 20))),
-          ],
+          ),
         ),
-      ),
+        Container(
+          alignment: AlignmentDirectional.bottomCenter,
+          padding: const EdgeInsets.only(bottom: 30),
+          child: ElevatedButton(
+            child: (walletAddr != null)
+                ? const Text('SEND PELI')
+                : const Text('Scan QR', style: TextStyle(fontSize: 20)),
+            onPressed: () {
+              if (walletAddr != null) {
+                dynamic addr = walletAddr!.code;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SendPeliScreen(walletAddr: addr),
+                  ),
+                );
+              }
+            },
+          ),
+        )
+      ]),
     );
   }
 }
