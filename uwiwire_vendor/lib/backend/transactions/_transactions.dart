@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:web3dart/web3dart.dart';
 
 // const String rpcUrl = 'https://cibc-mainnet.sundaebytes.com';
