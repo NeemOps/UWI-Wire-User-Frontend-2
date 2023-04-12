@@ -168,9 +168,13 @@ class _SendPeliScreenState extends State<SendPeliScreen> {
 
                     // Send
                     ElevatedButton(
-                      onPressed: () {
-                        // Transactions transactions = Transactions();
-                        // transactions.transfer(recipient, _total);
+                      onPressed: () async {
+                        Transactions transactions = Transactions();
+                        try {
+                          await transactions.sendTokens(recipient, _total);
+                        } catch (e) {
+                          print(e);
+                        }
                       },
                       child: const Text('Send'),
                     ),

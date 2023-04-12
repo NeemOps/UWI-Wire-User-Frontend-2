@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uwiwire_vendor/backend/transactions/_transactions.dart';
 import 'package:uwiwire_vendor/constants.dart';
 
 import 'package:walletconnect_dart/walletconnect_dart.dart';
@@ -14,40 +15,40 @@ class MetamaskScreen extends StatefulWidget {
 class _MetamaskScreenState extends State<MetamaskScreen> {
   var _session, _uri;
 
-  var connector = WalletConnect(
-    bridge: 'https://bridge.walletconnect.org',
-    clientMeta: const PeerMeta(
-      name: 'UWIwire',
-      description: 'An app for converting pictures to NFT',
-      url: 'https://uwi-wire.herokuapp.com/',
-      icons: [],
-    ),
-  );
+  Transactions metamask = Transactions();
+  var connector;
+
+  @override
+  void initState() {
+    metamask.connectWallet();
+    connector = metamask.getConnector();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    connector.on(
-      'connect',
-      (session) => setState(() {
-        _session = _session;
-      }),
-    );
+    // connector.on(
+    //   'connect',
+    //   (session) => setState(() {
+    //     _session = _session;
+    //   }),
+    // );
 
-    connector.on(
-      'session_update',
-      (payload) => setState(() {
-        _session = payload;
-        print(payload.toString());
-        print(payload.toString());
-      }),
-    );
+    // connector.on(
+    //   'session_update',
+    //   (payload) => setState(() {
+    //     _session = payload;
+    //     print(payload.toString());
+    //     print(payload.toString());
+    //   }),
+    // );
 
-    connector.on(
-      'disconnect',
-      (payload) => setState(() {
-        _session = null;
-      }),
-    );
+    // connector.on(
+    //   'disconnect',
+    //   (payload) => setState(() {
+    //     _session = null;
+    //   }),
+    // );
 
     return Scaffold(
       body: Center(
@@ -58,7 +59,13 @@ class _MetamaskScreenState extends State<MetamaskScreen> {
               (_session != null)
                   ? WalletInfo(session: _session)
                   : ElevatedButton(
-                      onPressed: () => connectMetamask(context),
+                      onPressed: () {
+                        metamask.connectMetamask(context);
+
+                        setState(() {
+                          _session = metamask.getSession();
+                        });
+                      },
                       child: const Text("Connect Metamask"),
                     )
             ],
@@ -66,23 +73,6 @@ class _MetamaskScreenState extends State<MetamaskScreen> {
         ),
       ),
     );
-  }
-
-  connectMetamask(BuildContext context) async {
-    if (!connector.connected) {
-      try {
-        var session = await connector.createSession(onDisplayUri: (uri) async {
-          _uri = uri;
-          await launchUrlString(uri, mode: LaunchMode.externalApplication);
-        });
-
-        setState(() {
-          _session = session;
-        });
-      } catch (exp) {
-        print(exp);
-      }
-    }
   }
 }
 

@@ -1,5 +1,4 @@
-import 'package:uwiwire_vendor/backend/authentication/_authentication_command.dart';
-
+import '_authentication_command.dart';
 import '_authentication.dart';
 
 class LoginCommand implements AuthenticationCommand {

@@ -57,6 +57,7 @@ class _PeerScannerState extends State<PeerScanner> {
             onPressed: () {
               if (walletAddr != null) {
                 dynamic addr = walletAddr!.code;
+                Navigator.pop(context);
                 Navigator.push(
                   context,
                   MaterialPageRoute(

@@ -47,6 +47,7 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   web3dart: ^2.6.1
   flutter_web3: ^2.1.9
+  ethereum: ^5.0.2
 
 dev_dependencies:
   flutter_test:
