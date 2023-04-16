@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uwiwire_vendor/backend/transactions/_transactions.dart';
+import 'package:uwiwire_vendor/backend/web3/_wallet.dart';
 import 'package:uwiwire_vendor/constants.dart';
-
-import 'package:walletconnect_dart/walletconnect_dart.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class MetamaskScreen extends StatefulWidget {
   const MetamaskScreen({super.key});
@@ -13,15 +10,14 @@ class MetamaskScreen extends StatefulWidget {
 }
 
 class _MetamaskScreenState extends State<MetamaskScreen> {
-  var _session, _uri;
+  var _session;
 
-  Transactions metamask = Transactions();
+  Web3Wallet metamask = Web3Wallet();
   var connector;
 
   @override
   void initState() {
-    metamask.connectWallet();
-    connector = metamask.getConnector();
+    connector = metamask.connector;
     super.initState();
   }
 
@@ -103,8 +99,13 @@ class WalletInfo extends StatelessWidget {
             const SizedBox(height: 100),
 
             // Displays Account Address
-            const Text('Account'),
-            Text('${_session.accounts[0]}'),
+            Text('Wallet Address: ${_session.accounts[0]}'),
+
+            // Whitespace
+            const SizedBox(height: 15),
+
+            // Displays Chain ID
+            Text('Chain ID: ${_session.chainId}'),
 
             // Whitespace
             const SizedBox(height: 100),
@@ -115,6 +116,7 @@ class WalletInfo extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, '/homeRoute');
                 },
+                style: ElevatedButton.styleFrom(backgroundColor: kPrimaryColor),
                 child: const Text('Home'),
               ),
             )

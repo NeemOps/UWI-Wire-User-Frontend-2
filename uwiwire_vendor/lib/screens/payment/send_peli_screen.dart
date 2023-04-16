@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uwiwire_vendor/backend/transactions/_transactions.dart';
 import 'package:uwiwire_vendor/constants.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 class SendPeliScreen extends StatefulWidget {
   final dynamic walletAddr;
@@ -60,7 +59,7 @@ class _SendPeliScreenState extends State<SendPeliScreen> {
                       'Recipient',
                       style: TextStyle(color: kPrimaryColor, fontSize: 30),
                     ),
-                    Text('Name: '),
+                    const Text('Name: '),
                     Text('Wallet Address: $recipient'),
                   ],
                 ),
@@ -168,13 +167,9 @@ class _SendPeliScreenState extends State<SendPeliScreen> {
 
                     // Send
                     ElevatedButton(
-                      onPressed: () async {
-                        Transactions transactions = Transactions();
-                        try {
-                          await transactions.sendTokens(recipient, _total);
-                        } catch (e) {
-                          print(e);
-                        }
+                      onPressed: () {
+                        Transactions transaction = Transactions();
+                        transaction.transferTokens('$recipient', _total);
                       },
                       child: const Text('Send'),
                     ),
