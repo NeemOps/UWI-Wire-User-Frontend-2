@@ -4,7 +4,7 @@ import 'package:uwiwire_vendor/screens/home/components/home_body.dart';
 
 import '../account_screen.dart';
 import '../payment/payment_screen.dart';
-import 'menu.dart';
+import 'menu/menu.dart';
 
 class NavScreen extends StatefulWidget {
   const NavScreen({super.key});
@@ -28,7 +28,7 @@ class _NavScreenState extends State<NavScreen> {
       backgroundColor: kBackgroundColor,
 
       // Sidebar
-      drawer: const Menu(),
+      drawer: Menu(),
 
       // App Bar
       appBar: buildAppBar(),
