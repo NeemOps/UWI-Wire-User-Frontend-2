@@ -41,6 +41,10 @@ class MenuBody extends StatelessWidget {
       },
       child: Column(
         children: [
+          const ListTile(
+            leading: Icon(Icons.money_rounded),
+            title: Text('Transactions'),
+          ),
           Expanded(
             child: Align(
               alignment: FractionalOffset.bottomCenter,
