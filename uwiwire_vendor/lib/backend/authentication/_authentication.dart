@@ -1,7 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:uwiwire_vendor/screens/login/login_screen.dart';
 
 import '../../repository/keys.dart';
@@ -13,8 +12,8 @@ class Authentication {
 
   // Login
   Future<String?> login() async {
-    String email = LoginScreen.getUsername();
-    String password = LoginScreen.getPassword();
+    String email = LoginBody.getUsername();
+    String password = LoginBody.getPassword();
 
     const uri = 'https://uwi-wire.herokuapp.com/api/v1/auth/users';
 
