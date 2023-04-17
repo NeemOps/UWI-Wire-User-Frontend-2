@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.uwiwire_vendor.app-mergeDebugResources-20:/values-ru/values-ru.xml",
+            "outputFile": "com.example.uwiwire_vendor.app-mergeDebugResources-21:/values-ru/values-ru.xml",
             "map": [
                 {
                     "source": "C:\\Users\\user\\.gradle\\caches\\transforms-3\\a8fb2b2b7b53df54e4065a4485931292\\transformed\\jetified-zxing-android-embedded-4.3.0\\res\\values-ru\\values-ru.xml",

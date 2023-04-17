@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/metamaskRoute': (context) => const MetamaskScreen(),
         '/homeRoute': (context) => const NavScreen(),
         '/scanner': (context) => const PeerScanner(),
+        '/login': (context) => const LoginScreen(),
       },
     );
   }

@@ -3,6 +3,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 // Components
 import 'package:uwiwire_vendor/constants.dart';
+import '../../backend/authentication/_authentication_command.dart';
 import '../../backend/authentication/_authentication_controller.dart';
 import '../../backend/authentication/_login_command.dart';
 
@@ -31,7 +32,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final AuthenticationController _authController = AuthenticationController();
 
-  LoginCommand loginCommand = LoginCommand();
+  AuthenticationCommand loginCommand = LoginCommand();
 
   late String? accessToken;
 

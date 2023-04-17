@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.uwiwire_vendor.app-mergeDebugResources-20:/values-mk/values-mk.xml",
+            "outputFile": "com.example.uwiwire_vendor.app-mergeDebugResources-21:/values-mk/values-mk.xml",
             "map": [
                 {
                     "source": "C:\\Users\\user\\.gradle\\caches\\transforms-3\\6c400c0637cb2fea81e72115a5ff1a4e\\transformed\\appcompat-1.4.2\\res\\values-mk\\values-mk.xml",
