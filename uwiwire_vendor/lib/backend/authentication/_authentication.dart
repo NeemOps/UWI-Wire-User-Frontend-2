@@ -4,13 +4,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:uwiwire_vendor/screens/login/login_screen.dart';
 
+import '../../repository/keys.dart';
+import '../../repository/repository.dart';
 import '../_account_info.dart';
 
 class Authentication {
-  static late final String _accessToken;
-  String getAccessToken() {
-    return _accessToken;
-  }
+  Repository repo = Repository();
 
   // Login
   Future<String?> login() async {
@@ -27,11 +26,13 @@ class Authentication {
 
     if (response.statusCode == 200) {
       var token = json.decode(response.body)['access_token'];
-      _accessToken = token;
+
+      // Add Token to User Repository
+      repo.write(tokenKey, token);
 
       // Load Account info
       final AccountInfo accountInfo = AccountInfo();
-      accountInfo.getAccountInfo(_accessToken);
+      accountInfo.getAccountInfo(token);
 
       return token;
     } else {
@@ -39,8 +40,8 @@ class Authentication {
     }
   }
 
-  void logout() {
-    // ignore: avoid_debugPrint
-    debugPrint('Bye');
+  // Logout
+  Future<void> logout() async {
+    await repo.clear();
   }
 }
