@@ -6,7 +6,7 @@ import 'screens/payment/qr_scanner/peer_scanner.dart';
 
 import 'screens/login/login_screen.dart';
 import 'screens/home/nav_screen.dart';
-import 'screens/metamask_screen.dart';
+import 'screens/metamask/metamask_screen.dart';
 
 void main(List<String> args) {
   runApp(const MyApp());

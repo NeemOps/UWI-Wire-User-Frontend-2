@@ -167,7 +167,6 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      // When Pressed
       onTap: () {
         BlocProvider.of<LoginCubit>(context).login();
       },

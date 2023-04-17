@@ -49,6 +49,8 @@ dependencies:
   flutter_web3: ^2.1.9
   ethereum: ^5.0.2
   flutter_secure_storage: ^8.0.0
+  bloc: ^8.1.1
+  meta: ^1.8.0
 
 dev_dependencies:
   flutter_test:
