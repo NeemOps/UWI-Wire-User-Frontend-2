@@ -14,8 +14,10 @@ class LoginCubit extends Cubit<LoginState> {
   AuthenticationCommand loginCommand = LoginCommand();
 
   Future<void> login() async {
-    authController.setCommand(loginCommand);
     emit(LoginLoading());
+
+    authController.setCommand(loginCommand);
+
     try {
       await authController.authenticate();
       emit(LoginSuccess());
