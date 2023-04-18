@@ -1,3 +1,3 @@
 abstract class AuthenticationCommand {
-  Future<String> execute();
+  Future<void> execute();
 }

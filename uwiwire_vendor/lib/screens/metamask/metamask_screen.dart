@@ -1,70 +1,88 @@
 import 'package:flutter/material.dart';
-import 'package:uwiwire_vendor/backend/web3/_wallet.dart';
-import 'package:uwiwire_vendor/constants.dart';
 
-class MetamaskScreen extends StatefulWidget {
-  const MetamaskScreen({super.key});
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
+import '../../constants.dart';
+import '../home/nav_screen.dart';
+import '../../backend/web3/_wallet.dart';
+import 'connection_cubit/connection_cubit.dart';
+
+class MetamaskScreen extends StatelessWidget {
+  MetamaskScreen({super.key});
+
+  final Web3Wallet wallet = Web3Wallet();
 
   @override
-  State<MetamaskScreen> createState() => _MetamaskScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ConnectionCubit(connector: wallet.getConnector()),
+      child: const Scaffold(
+        body: MetamaskBody(),
+      ),
+    );
+  }
 }
 
-class _MetamaskScreenState extends State<MetamaskScreen> {
-  var _session;
-
-  Web3Wallet metamask = Web3Wallet();
-  var connector;
+class MetamaskBody extends StatefulWidget {
+  const MetamaskBody({super.key});
 
   @override
+  State<MetamaskBody> createState() => _MetamaskBodyState();
+}
+
+class _MetamaskBodyState extends State<MetamaskBody> {
+  @override
   void initState() {
-    connector = metamask.connector;
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback(
+        (_) => context.read<ConnectionCubit>().initiateListeners());
   }
 
   @override
   Widget build(BuildContext context) {
-    // connector.on(
-    //   'connect',
-    //   (session) => setState(() {
-    //     _session = _session;
-    //   }),
-    // );
+    return BlocListener<ConnectionCubit, MetamaskConnectionState>(
+      listener: (context, state) {
+        if (state is ConnectionSuccess) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (BuildContext context) => WalletInfo(
+                session: state.session,
+              ),
+            ),
+          );
+        }
 
-    // connector.on(
-    //   'session_update',
-    //   (payload) => setState(() {
-    //     _session = payload;
-    //     print(payload.toString());
-    //     print(payload.toString());
-    //   }),
-    // );
+        if (state is MetamaskConnectionSuccess) {
+          launchUrlString(state.url, mode: LaunchMode.externalApplication);
+        }
 
-    // connector.on(
-    //   'disconnect',
-    //   (payload) => setState(() {
-    //     _session = null;
-    //   }),
-    // );
-
-    return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              (_session != null)
-                  ? WalletInfo(session: _session)
-                  : ElevatedButton(
-                      onPressed: () {
-                        metamask.connectMetamask(context);
-
-                        setState(() {
-                          _session = metamask.getSession();
-                        });
-                      },
-                      child: const Text("Connect Metamask"),
-                    )
-            ],
+        if (state is MetamaskConnectionFailed) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(
+                backgroundColor: kPrimaryColor,
+                content: Text(state.error),
+              ),
+            );
+        }
+      },
+      child: Scaffold(
+        body: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    BlocProvider.of<ConnectionCubit>(context).connectMetamask();
+                  },
+                  child: const Text("Connect Metamask"),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -73,20 +91,21 @@ class _MetamaskScreenState extends State<MetamaskScreen> {
 }
 
 class WalletInfo extends StatelessWidget {
+  final dynamic session;
+
   const WalletInfo({
     super.key,
-    required session,
-  }) : _session = session;
-
-  final _session;
+    required this.session,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Scaffold(
+      body: Container(
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
             Container(
               alignment: Alignment.center,
               child: const Text(
@@ -99,13 +118,19 @@ class WalletInfo extends StatelessWidget {
             const SizedBox(height: 100),
 
             // Displays Account Address
-            Text('Wallet Address: ${_session.accounts[0]}'),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text('Wallet Address: ${session.accounts[0]}'),
+            ),
 
             // Whitespace
             const SizedBox(height: 15),
 
             // Displays Chain ID
-            Text('Chain ID: ${_session.chainId}'),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text('Chain ID: ${session.chainId}'),
+            ),
 
             // Whitespace
             const SizedBox(height: 100),
@@ -114,13 +139,19 @@ class WalletInfo extends StatelessWidget {
               alignment: Alignment.center,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/homeRoute');
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => const NavScreen(),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: kPrimaryColor),
                 child: const Text('Home'),
               ),
             )
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

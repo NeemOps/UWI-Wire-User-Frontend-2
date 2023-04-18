@@ -11,7 +11,7 @@ class Authentication {
   Repository repo = Repository();
 
   // Login
-  Future<String?> login() async {
+  Future<void> login() async {
     String email = LoginBody.getUsername();
     String password = LoginBody.getPassword();
 
@@ -32,15 +32,27 @@ class Authentication {
       // Load Account info
       final AccountInfo accountInfo = AccountInfo();
       accountInfo.getAccountInfo(token);
-
-      return token;
-    } else {
-      return null;
     }
   }
 
   // Logout
   Future<void> logout() async {
     await repo.clear();
+  }
+
+  Future<void> updateAddress() async {
+    String? addr = await repo.read(addrKey);
+    String? token = await repo.read(tokenKey);
+
+    const uri = 'https://uwi-wire.herokuapp.com/api/v1/user/update/address';
+
+    await http.put(
+      Uri.parse(uri),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+      body: jsonEncode({"address": addr}),
+    );
   }
 }

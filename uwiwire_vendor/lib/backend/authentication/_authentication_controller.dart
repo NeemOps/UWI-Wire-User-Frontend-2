@@ -7,7 +7,7 @@ class AuthenticationController {
     _command = command;
   }
 
-  Future<String> authenticate() async {
+  Future<void> authenticate() async {
     return await _command.execute();
   }
 }

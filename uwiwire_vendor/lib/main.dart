@@ -7,6 +7,7 @@ import 'screens/payment/qr_scanner/peer_scanner.dart';
 import 'screens/login/login_screen.dart';
 import 'screens/home/nav_screen.dart';
 import 'screens/metamask/metamask_screen.dart';
+import 'screens/transactions/transactions_screen.dart';
 
 void main(List<String> args) {
   runApp(const MyApp());
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
       ),
       home: const LoginScreen(),
       routes: {
-        '/metamaskRoute': (context) => const MetamaskScreen(),
+        '/transactionsRoute': (context) => const TransactionsScreen(),
+        '/metamaskRoute': (context) => MetamaskScreen(),
         '/homeRoute': (context) => const NavScreen(),
         '/scanner': (context) => const PeerScanner(),
         '/login': (context) => const LoginScreen(),

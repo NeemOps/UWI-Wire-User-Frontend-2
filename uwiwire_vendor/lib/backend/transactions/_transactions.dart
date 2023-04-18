@@ -22,7 +22,7 @@ class Transactions {
 
   void initializeProvider(Web3Wallet wallet) {
     sessionStatus = wallet.getSession();
-    walletConnector = wallet.connector;
+    walletConnector = wallet.getConnector();
     sender = wallet.getSession().accounts[0];
 
     provider = wallet.getProvider();

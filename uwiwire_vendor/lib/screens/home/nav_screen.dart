@@ -3,8 +3,9 @@ import 'package:uwiwire_vendor/constants.dart';
 import 'package:uwiwire_vendor/screens/home/components/home_body.dart';
 
 import '../account_screen.dart';
+import '../components/appbar/top_bar.dart';
+import '../components/menu/menu.dart';
 import '../payment/payment_screen.dart';
-import 'menu/menu.dart';
 
 class NavScreen extends StatefulWidget {
   const NavScreen({super.key});
@@ -31,7 +32,7 @@ class _NavScreenState extends State<NavScreen> {
       drawer: Menu(),
 
       // App Bar
-      appBar: buildAppBar(),
+      appBar: TopBar.buildAppBar(context),
 
       // Body
       body: Container(
@@ -45,17 +46,6 @@ class _NavScreenState extends State<NavScreen> {
             topRight: Radius.circular(30),
           ),
           child: buildBottomNav()),
-    );
-  }
-
-  // AppBar
-  AppBar buildAppBar() {
-    return AppBar(
-      elevation: 0,
-      backgroundColor: kPrimaryColor,
-      actions: const <Widget>[
-        Center(child: Text('UWIwire')),
-      ],
     );
   }
 

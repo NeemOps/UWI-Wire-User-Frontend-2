@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:uwiwire_vendor/screens/metamask/metamask_screen.dart';
 
 // Components
 import 'components/login_form.dart';
@@ -42,7 +43,11 @@ class LoginBody extends StatelessWidget {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          Navigator.pushNamed(context, '/metamaskRoute');
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (BuildContext context) => MetamaskScreen(),
+            ),
+          );
         }
 
         if (state is LoginFailure) {

@@ -16,7 +16,7 @@ class Web3Wallet {
 
   static late SessionStatus _session;
 
-  WalletConnect get connector {
+  WalletConnect getConnector() {
     final WalletConnect connector = WalletConnect(
       bridge: 'https://bridge.walletconnect.org',
       clientMeta: const PeerMeta(
@@ -30,37 +30,11 @@ class Web3Wallet {
     return connector;
   }
 
-  connectMetamask(BuildContext context) async {
-    if (!connector.bridgeConnected) {
-      connector.reconnect();
-    }
-
-    if (!connector.connected) {
-      try {
-        SessionStatus session = await connector.createSession(
-          onDisplayUri: (uri) async {
-            await launchUrlString(uri, mode: LaunchMode.externalApplication);
-          },
-        );
-
-        _session = session;
-
-        Transactions transaction = Transactions();
-        transaction.initializeProvider(_instance);
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: kPrimaryColor,
-          content: Text(e.toString()),
-        ));
-      }
-    }
-  }
-
   SessionStatus getSession() {
     return _session;
   }
 
   EthereumWalletConnectProvider getProvider() {
-    return EthereumWalletConnectProvider(connector);
+    return EthereumWalletConnectProvider(getConnector());
   }
 }

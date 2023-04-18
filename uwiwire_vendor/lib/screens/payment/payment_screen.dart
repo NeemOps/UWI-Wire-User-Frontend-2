@@ -42,7 +42,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             // Whitespace
             const SizedBox(height: 15),
 
-            // // Make Payment
+            // Make Payment
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/sendPeli');

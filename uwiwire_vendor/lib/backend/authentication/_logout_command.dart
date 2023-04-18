@@ -9,12 +9,7 @@ class LogoutCommand implements AuthenticationCommand {
   }
 
   @override
-  Future<String> execute() async {
-    final result = await _authInstance.login();
-    if (result != null) {
-      return result;
-    } else {
-      throw Exception('Login failed');
-    }
+  Future<void> execute() async {
+    await _authInstance.logout();
   }
 }
