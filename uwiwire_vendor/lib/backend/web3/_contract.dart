@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:web3dart/web3dart.dart';
 
 class FacacadeContract {
-  final _addr = '0x6298b8EEfCe01ac5164127B13A8C1957b1b1e439';
+  final _addr = '0x74d02cE73407Ed15C895bCb19C2DD7E6A0c08d7e';
 
   final _abiJSON = [
     {
@@ -194,16 +194,6 @@ class FacacadeContract {
     {
       "inputs": [],
       "name": "unpause",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {"internalType": "contract IERC20", "name": "token", "type": "address"},
-        {"internalType": "uint256", "name": "amount", "type": "uint256"}
-      ],
-      "name": "withdrawTokens",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
