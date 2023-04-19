@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="xyz.uwi-wire.user"
+    package="com.example.uwiwire_vendor"
     android:versionCode="1"
     android:versionName="1.0.0" >
 
@@ -39,7 +39,7 @@
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="UWIwire" >
+        android:label="uwiwire_vendor" >
         <activity
             android:name="com.example.uwiwire_vendor.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

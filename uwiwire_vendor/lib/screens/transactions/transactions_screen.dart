@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uwiwire_vendor/constants.dart';
 
+import '../../models/transaction_model.dart';
 import '../components/appbar/top_bar.dart';
 import 'components/transaction_item.dart';
 
@@ -9,6 +10,8 @@ class TransactionsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final transactionsList = TransactionModel.transactionsList();
+
     return Scaffold(
       appBar: TopBar.buildAppBar(context),
       body: Container(
@@ -38,13 +41,8 @@ class TransactionsScreen extends StatelessWidget {
                           style: TextStyle(fontSize: 20),
                         ),
                       ),
-                      TransactionItem(),
-                      TransactionItem(),
-                      TransactionItem(),
-                      TransactionItem(),
-                      TransactionItem(),
-                      TransactionItem(),
-                      TransactionItem(),
+                      for (TransactionModel transaction in transactionsList)
+                        TransactionItem(transaction: transaction),
                     ],
                   ),
                 ),

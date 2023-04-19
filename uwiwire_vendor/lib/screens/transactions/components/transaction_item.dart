@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
+import '../../../models/transaction_model.dart';
 
 class TransactionItem extends StatelessWidget {
-  const TransactionItem({
-    super.key,
-  });
+  final TransactionModel transaction;
+
+  const TransactionItem({super.key, required this.transaction});
 
   @override
   Widget build(BuildContext context) {
@@ -17,18 +18,48 @@ class TransactionItem extends StatelessWidget {
       ),
       child: ListTile(
         onTap: () {},
-        leading: const Icon(Icons.circle),
-        title: const Text('\$10,000'),
-        subtitle: const Text('person'),
+        leading: (!transaction.isReceiver! && transaction.isPurchase!)
+            ? const Icon(Icons.circle, color: Colors.red)
+            : (!transaction.isReceiver! && !transaction.isPurchase!)
+                ? const Icon(Icons.circle, color: Colors.blue)
+                : (transaction.isReceiver! && !transaction.isPurchase!)
+                    ? const Icon(Icons.circle, color: Colors.green)
+                    : const Icon(Icons.circle, color: Colors.black),
+        title: Text('\$${transaction.amount!.toStringAsFixed(2)}'),
+        subtitle: (!transaction.isReceiver! && transaction.isPurchase!)
+            ? Text(transaction.receiver!)
+            : (!transaction.isReceiver! && !transaction.isPurchase!)
+                ? Text(transaction.receiver!)
+                : (transaction.isReceiver! && !transaction.isPurchase!)
+                    ? Text(transaction.sender!)
+                    : const Text('Person'),
         trailing: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text('Withdrawn'),
+          children: [
+            (!transaction.isReceiver! && transaction.isPurchase!)
+                ? const Text(
+                    'Purchase',
+                    style: TextStyle(color: Colors.red),
+                  )
+                : (!transaction.isReceiver! && !transaction.isPurchase!)
+                    ? const Text(
+                        'Sent',
+                        style: TextStyle(color: Colors.blue),
+                      )
+                    : (transaction.isReceiver! && !transaction.isPurchase!)
+                        ? const Text(
+                            'Deposited',
+                            style: TextStyle(color: Colors.green),
+                          )
+                        : const Text(
+                            'Transaction',
+                            style: TextStyle(color: Colors.black),
+                          ),
 
             // Whitespace
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
 
-            Text('Aug 19, 2019'),
+            const Text('Aug 19, 2019'),
           ],
         ),
       ),
